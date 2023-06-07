@@ -7,7 +7,7 @@
 #
 ################################################################################
 # \copyright
-# Copyright 2018-2021 Cypress Semiconductor Corporation
+# Copyright 2018-2023 Cypress Semiconductor Corporation
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,14 +29,7 @@ endif
 
 include $(MTB_TOOLS__RECIPE_DIR)/make/recipe/recipe_common.mk
 
-# Linker options definitions for multiple cores support
-ifeq ($(TOOLCHAIN),IAR)
-MTB_RECIPE__LDFLAGS+=--config_def _CORE_$(MTB_RECIPE__CORE_NAME)_=1
-else ifeq ($(TOOLCHAIN),GCC_ARM)
-MTB_RECIPE__LDFLAGS+=-Wl,'--defsym=_CORE_$(MTB_RECIPE__CORE_NAME)_=1'
-else ifeq ($(TOOLCHAIN),ARM)
-MTB_RECIPE__LDFLAGS+=--predefine="-D_CORE_$(MTB_RECIPE__CORE_NAME)_=1"
-endif
+MTB_RECIPE__LDFLAGS+=$(_MTB_RECIPE__XMC7__LDFLAGS)
 
 ################################################################################
 # Programmer tool

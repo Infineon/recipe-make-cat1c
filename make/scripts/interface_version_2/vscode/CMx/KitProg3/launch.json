@@ -108,7 +108,8 @@
             "overrideAttachCommands": [
                 "set mem inaccessible-by-default off",
                 "-enable-pretty-printing",
-                "set remotetimeout 15"
+                "set remotetimeout 15",
+                "info threads"
             ],
             "numberOfProcessors": &&_MTB_RECIPE__PROCESSOR_COUNT&&,
             "targetProcessor": &&_MTB_RECIPE__TARGET_PROCESSOR_NUMBER&&,  // Set to 0 for the CM0+, set to 1 or 2 for the CM7
@@ -127,7 +128,7 @@
                 "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
             }
         },
-        {//Except multi-core start//
+        {//Except multi-core start0//
             "name": "Erase (KitProg3_MiniProg4)",
             "type": "cortex-debug",
             "request": "launch",
@@ -196,114 +197,6 @@
                 "hidden": false,
                 "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
             }
-        },//Except multi-core end//
-        {
-            "name": "Launch XMC7000 &&_MTB_RECIPE__TARGET_PROCESSOR_NAME&& (JLink)",
-            "type": "cortex-debug",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "executable": "&&_MTB_RECIPE__ELF_FILE&&",
-            "servertype": "jlink",
-            "device": "&&_MTB_RECIPE__DEVICE_DEBUG&&",
-            "interface": "swd",
-            "preLaunchCommands": [//CM7 Only//
-                // Program via the hex file to get complete coverage//CM7 Only//
-                "exec-file &&_MTB_RECIPE__HEX_FILE&&"//CM7 Only//
-            ],//CM7 Only//
-            "overrideRestartCommands": [
-                "starti"
-            ],
-            // svdFile is optional, it can be very large.
-            "svdFile": "&&_MTB_RECIPE__SVD_FILE_NAME&&",
-            "breakAfterReset": true,
-            "runToEntryPoint": "main",    // Specifies application entry point name where program will halt
-            "preLaunchTask": "Build", // Set this to run a task from tasks.json before
-                                                     // starting a debug session
-            "showDevDebugOutput": "none",
-            "presentation": {
-                "hidden": false,
-                "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
-            }
-        },
-        // When using 'attach', make sure your program is running on the board and that your
-        // executable matches the image in the chip exactly, or else strange things can happen
-        // with breakpoints, variables, etc.
-        {
-            "name": "Attach XMC7000 &&_MTB_RECIPE__TARGET_PROCESSOR_NAME&& (JLink)",
-            "type": "cortex-debug",
-            "request": "attach",
-            "cwd": "${workspaceFolder}",
-            "executable": "&&_MTB_RECIPE__ELF_FILE&&",
-            "servertype": "jlink",
-            "device": "&&_MTB_RECIPE__DEVICE_DEBUG&&",
-            "interface": "swd",
-            "overrideRestartCommands": [
-                "starti"
-            ],
-            // svdFile is optional, it can be very large.
-            "svdFile": "&&_MTB_RECIPE__SVD_FILE_NAME&&",
-            "breakAfterReset": true,
-            "runToEntryPoint": "main",    // Specifies application entry point name for restart/reset
-            "showDevDebugOutput": "none",
-            "presentation": {
-                "hidden": false,
-                "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
-            }
-        },
-        {//Except multi-core start//
-            "name": "Erase (JLink)",
-            "type": "cortex-debug",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            // executable not needed but need some valid file to get the session to start
-            "executable": "&&_MTB_RECIPE__ELF_FILE&&",
-            "servertype": "jlink",
-            "device": "&&_MTB_RECIPE__DEVICE_PROGRAM&&",
-            "interface": "swd",
-            "overrideLaunchCommands": [
-                "monitor reset",      // Resetting via default reset type
-                "monitor flash erase",
-                "monitor reset"       // Resetting via default reset type
-            ],
-            "postStartSessionCommands": [
-                "quit"
-            ],
-            "showDevDebugOutput": "none",
-            "presentation": {
-                "hidden": false,
-                "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
-            }
-        },
-        {
-            "name": "Program (JLink)",
-            "type": "cortex-debug",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            // executable not needed but need some valid file to get the session to start
-            "executable": "&&_MTB_RECIPE__ELF_FILE&&",
-            "servertype": "jlink",
-            "device": "&&_MTB_RECIPE__DEVICE_PROGRAM&&",
-            "interface": "swd",
-            "preLaunchCommands": [//CM7 Only//
-                // Program via the hex file to get complete coverage//CM7 Only//
-                "exec-file &&_MTB_RECIPE__HEX_FILE&&"//CM7 Only//
-            ],//CM7 Only//
-            "overrideLaunchCommands": [
-                "monitor reset",      // Resetting via default reset type
-                "-target-download",
-                "monitor reset",      // Resetting via default reset type
-                "monitor go"
-            ],
-            "postStartSessionCommands": [
-                "quit"
-            ],
-            "preLaunchTask": "Build",    // Set this to run a task from tasks.json
-                                                        // before device programming
-            "showDevDebugOutput": "none",
-            "presentation": {
-                "hidden": false,
-                "group": "&&_MTB_RECIPE__TARGET_PROCESSOR_NAME&&"
-            }
-        }//Except multi-core end//
+        }//Except multi-core end0//
     ]
 }
