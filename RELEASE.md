@@ -15,6 +15,9 @@ This release of the XMC7000 and Traveo II GNU make build recipe includes complet
     * ARM Compiler 6
 
 ### What Changed?
+#### v1.2.0
+* Improved stability and bug fixes.
+
 #### v1.1.1
 * Added support for BSP_PROGRAM_INTERFACE to select debug interface. Valid values are "KitProg3" and "JLink". Default value is "KitProg3".
 * Eclipse and VSCode export will now only generate the launch configuration for the selected programming interface.
@@ -44,5 +47,5 @@ Minimum required ModusToolbox Software Environment: v3.0
 * [ModusToolbox](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software)
 
 ---
-© Cypress Semiconductor Corporation, 2022-2023.
+© Cypress Semiconductor Corporation, 2022-2024.
 
