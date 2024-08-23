@@ -48,10 +48,10 @@ ifneq ($(PROG_FILE),)
 _MTB_RECIPE__OPENOCD_PROGRAM_IMG=$(PROG_FILE)
 endif
 
-_MTB_RECIPE__OPENOCD_CUSTOM_COMMAND?=cat1c allow_efuse_program off;
+_MTB_RECIPE__OPENOCD_CUSTOM_COMMAND?=$(_MTB_RECIPE__OPENOCD_DRIVER_NAME) allow_efuse_program off;
 
-_MTB_RECIPE__OPENOCD_ERASE=init; reset init; cat1c sflash_restrictions 1; erase_all; exit;
-_MTB_RECIPE__OPENOCD_PROGRAM=cat1c sflash_restrictions 1; program $(_MTB_RECIPE__OPENOCD_PROGRAM_IMG) verify reset exit;
+_MTB_RECIPE__OPENOCD_ERASE=init; reset init; $(_MTB_RECIPE__OPENOCD_DRIVER_NAME) sflash_restrictions 1; erase_all; exit;
+_MTB_RECIPE__OPENOCD_PROGRAM=$(_MTB_RECIPE__OPENOCD_DRIVER_NAME) sflash_restrictions 1; program $(_MTB_RECIPE__OPENOCD_PROGRAM_IMG) verify reset exit;
 
 _MTB_RECIPE__OPENOCD_DEBUG=$(_MTB_RECIPE__OPENOCD_CHIP_NAME).cpu.$(_MTB_RECIPE__OPENOCD_CORE) configure -rtos auto -rtos-wipe-on-reset-halt 1; $(_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG); init; reset init;
 

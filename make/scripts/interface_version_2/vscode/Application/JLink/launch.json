@@ -43,6 +43,7 @@
             "overrideRestartCommands": [
                 "starti"
             ],
+            "loadFiles": [],//CM0 TVIIC2D6M only//
             "overrideLaunchCommands": [//traveo only//
                 "load &&_MTB_RECIPE__HEX_FILE_APPLICATION&&",//traveo only//
                 "monitor reset"//traveo only//
@@ -64,7 +65,7 @@
                 "lifecycleManagedByParent": true,
                 "launches": [                               // Array of launches. Order is respected
                     {
-                        "name": "Attach XMC7000 CM7_0 (JLink)",     // Name of CM7_0 attach configuration
+                        "name": "Attach &&_MTB_RECIPE__MCU_NAME&& CM7_0 (JLink)",     // Name of CM7_0 attach configuration
                         "folder": "./&&_MTB_RECIPE__SECOND_APP_NAME&&",
                         "overrides": {
                             "overrideRestartCommands": [
@@ -77,7 +78,7 @@
                         }
                     },
                     {//triple-core only//
-                        "name": "Attach XMC7000 CM7_1 (JLink)",     // Name of CM7_1 attach configuration//triple-core only//
+                        "name": "Attach &&_MTB_RECIPE__MCU_NAME&& CM7_1 (JLink)",     // Name of CM7_1 attach configuration//triple-core only//
                         "folder": "./&&_MTB_RECIPE__THIRD_APP_NAME&&",//triple-core only//
                         "overrides": {//triple-core only//
                             "overrideRestartCommands": [//triple-core only//
