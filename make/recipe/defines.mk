@@ -2,7 +2,7 @@
 # \file defines.mk
 #
 # \brief
-# Defines, needed for the PSoC 6 build recipe.
+# Defines, needed for the XMC7000 and Traveo II build recipe.
 #
 ################################################################################
 # \copyright
@@ -38,11 +38,19 @@ _MTB_RECIPE__PROGRAM_INTERFACE_SUPPORTED:=KitProg3 JLink
 # Compactibility interface for this recipe make
 #
 MTB_RECIPE__INTERFACE_VERSION:=2
+MTB_RECIPE__EXPORT_INTERFACES:=1 2 3
 
 #
 # List the supported toolchains
 #
-CY_SUPPORTED_TOOLCHAINS:=GCC_ARM IAR ARM
+ifdef CY_SUPPORTED_TOOLCHAINS
+MTB_SUPPORTED_TOOLCHAINS?=$(CY_SUPPORTED_TOOLCHAINS)
+else
+MTB_SUPPORTED_TOOLCHAINS?=GCC_ARM IAR ARM LLVM_ARM
+endif
+
+# For BWC with Makefiles that do anything with CY_SUPPORTED_TOOLCHAINS
+CY_SUPPORTED_TOOLCHAINS:=$(MTB_SUPPORTED_TOOLCHAINS)
 
 _MTB_RECIPE__START_FLASH:=0x10000000
 
@@ -120,6 +128,11 @@ else
 $(call mtb__error,Incorrect core $(MTB_RECIPE__CORE). Supported cores are CM0P and CM7. Check the CORE variable.)
 endif
 
+_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG:=gdb_port 3333
+_MTB_RECIPE__OPENOCD_EXTRA_PORT_ECLIPSE:=-c &quot;$(_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG)&quot;&\#13;&\#10;
+_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_DEBUG_ECLIPSE:=mon reset $(_MTB_RECIPE__OPENOCD_SECOND_RESET_TYPE)&\#13;&\#10;mon cat1c reset_halt sysresetreq&\#13;&\#10;flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
+_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_ATTACH_ECLIPSE:=flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
+
 #
 # Architecure specifics
 #
@@ -137,11 +150,6 @@ else
 _MTB_RECIPE__OPENOCD_CM71_DISABLE_FLAG:=
 _MTB_RECIPE__OPENOCD_CM71_DISABLE_ECLIPSE:=
 endif
-
-_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG:=gdb_port 3333
-_MTB_RECIPE__OPENOCD_EXTRA_PORT_ECLIPSE:=-c &quot;$(_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG)&quot;&\#13;&\#10;
-_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_DEBUG_ECLIPSE:=mon reset $(_MTB_RECIPE__OPENOCD_SECOND_RESET_TYPE)&\#13;&\#10;mon $(_MTB_RECIPE__OPENOCD_DRIVER_NAME) reset_halt sysresetreq&\#13;&\#10;flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
-_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_ATTACH_ECLIPSE:=flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
 
 ifneq (,$(findstring CYT,$(DEVICE)))
 _MTB_RECIPE__TVII_DEVICE=true

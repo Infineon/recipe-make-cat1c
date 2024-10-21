@@ -53,7 +53,7 @@
                 // Comment this next line out if you don't want to reload program
                 "monitor program {&&_MTB_RECIPE__HEX_FILE&&}",
                 "monitor reset &&_MTB_RECIPE__LAUNCH_RESET_TYPE&&",
-                "monitor &&_MTB_RECIPE__OPENOCD_DRIVER_NAME&& reset_halt sysresetreq"
+                "monitor cat1c reset_halt sysresetreq"
             ],
             "numberOfProcessors": &&_MTB_RECIPE__PROCESSOR_COUNT&&,
             "targetProcessor": &&_MTB_RECIPE__TARGET_PROCESSOR_NUMBER&&,  // Set to 0 for the CM0+, set to 1 or 2 for the CM7
@@ -148,7 +148,7 @@
             "overrideLaunchCommands": [
                 "set remotetimeout 15",
                 "monitor reset init",
-                "monitor &&_MTB_RECIPE__OPENOCD_DRIVER_NAME&& sflash_restrictions 1",
+                "monitor cat1c sflash_restrictions 1",
                 "monitor erase_all",
                 "monitor shutdown"
             ],
@@ -179,7 +179,7 @@
             ],
             "overrideLaunchCommands": [
                 "set remotetimeout 15",
-                "monitor &&_MTB_RECIPE__OPENOCD_DRIVER_NAME&& sflash_restrictions 1",
+                "monitor cat1c sflash_restrictions 1",
                 "monitor program {&&_MTB_RECIPE__HEX_FILE&&}",
                 "monitor adapter srst delay 1000",
                 "monitor reset_config srst_only",
