@@ -16,6 +16,9 @@ This release of the XMC7000 and Traveo II GNU make build recipe includes complet
     * LLVM Embedded Toolchain for Arm (Experimental)
 
 ### What Changed?
+#### v1.4.1
+* Fixed a postbuild dependency that could cause memcalc to fail.
+
 #### v1.4.0
 * Experimental support for LLVM Embedded Toolchain for Arm.
 * Optimization for speed changed to optimization for size for the IAR toolchain.
