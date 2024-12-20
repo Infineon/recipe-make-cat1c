@@ -16,6 +16,9 @@ This release of the XMC7000 and Traveo II GNU make build recipe includes complet
     * LLVM Embedded Toolchain for Arm (Experimental)
 
 ### What Changed?
+#### v1.5.0
+* Added Ninja support. Ninja build will be enabled by default with ModusToolbox 3.4, and latest core-make. To disable Ninja build set NINJA to empty-String. (For example: "make build NINJA=").
+
 #### v1.4.1
 * Fixed a postbuild dependency that could cause memcalc to fail.
 
@@ -52,7 +55,7 @@ This version of the XMC7000 and Traveo II build system was validated for compati
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 3.3     |
+| ModusToolbox Software Environment         | 3.4     |
 | GCC Compiler                              | 11.3    |
 | IAR Compiler                              | 9.3     |
 | ARM Compiler                              | 6.16    |
@@ -65,4 +68,3 @@ Minimum required ModusToolbox Software Environment: v3.0
 
 ---
 (c) 2022-2024, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved.
-
