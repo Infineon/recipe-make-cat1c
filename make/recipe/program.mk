@@ -7,7 +7,8 @@
 #
 ################################################################################
 # \copyright
-# Copyright 2018-2024 Cypress Semiconductor Corporation
+# (c) 2018-2025, Cypress Semiconductor Corporation (an Infineon company)
+# or an affiliate of Cypress Semiconductor Corporation. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,8 +36,8 @@ else
 _MTB_RECIPE__GDB_ARGS=$(MTB_TOOLS__RECIPE_DIR)/make/scripts/$(_MTB_RECIPE__OPENOCD_GDBINIT_FILE)
 endif
 
-_MTB_RECIPE__OPENOCD_SYMBOL_IMG=$(MTB_TOOLS__OUTPUT_CONFIG_DIR)/$(APPNAME).$(MTB_RECIPE__SUFFIX_TARGET)
-_MTB_RECIPE__OPENOCD_PROGRAM_IMG=$(MTB_TOOLS__OUTPUT_CONFIG_DIR)/$(APPNAME).$(MTB_RECIPE__SUFFIX_PROGRAM)
+_MTB_RECIPE__OPENOCD_SYMBOL_IMG=$(_MTB_RECIPE__LAST_CONFIG_TARG_FILE)
+_MTB_RECIPE__OPENOCD_PROGRAM_IMG=$(_MTB_RECIPE__LAST_CONFIG_PROG_FILE)
 
 # Multi-core application programming: always use combined HEX image
 ifneq ($(_MTB_RECIPE__APP_HEX_FILE),)
