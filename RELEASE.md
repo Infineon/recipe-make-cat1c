@@ -16,6 +16,9 @@ This release of the XMC7000 and Traveo II GNU make build recipe includes complet
     * LLVM Embedded Toolchain for Arm (Experimental)
 
 ### What Changed?
+#### v1.6.1
+* Added support for TRAVEO™ T2G CYT3DL device series.
+
 #### v1.6.0
 * Moved CFLAGS, CXXFLAGS, ASFLAGS, LDFLAGS variables to be added after default flags. In case of conflict, most toolchains select the last flags as the option. This allows those variables to overwrite the default flags.
 * Added support for GNU assembly syntax when using ARM toolchain.

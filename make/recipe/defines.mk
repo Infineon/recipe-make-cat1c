@@ -36,7 +36,7 @@ include $(MTB_TOOLS__RECIPE_DIR)/make/recipe/defines_common.mk
 _MTB_RECIPE__PROGRAM_INTERFACE_SUPPORTED:=KitProg3 JLink
 
 #
-# Compactibility interface for this recipe make
+# Compatibility interface for this recipe make
 #
 MTB_RECIPE__INTERFACE_VERSION:=2
 MTB_RECIPE__EXPORT_INTERFACES:=1 2 3 4
@@ -59,6 +59,12 @@ _MTB_RECIPE__START_FLASH:=0x10000000
 #Exact string: TVIIC2D6M
 ifneq (,$(findstring TVIIC2D6M,$(_MTB_RECIPE__DEVICE_DIE)))
 _MTB_RECIPE__IS_TVIIC2D6M_DEVICE:=true
+endif
+ifneq (,$(findstring TVIIC2D4M,$(_MTB_RECIPE__DEVICE_DIE)))
+_MTB_RECIPE__IS_TVIIC2D4M_DEVICE:=true
+endif
+ifneq (,$(filter true,$(_MTB_RECIPE__IS_TVIIC2D4M_DEVICE)))
+_MTB_RECIPE__IS_SINGLE_CM7_DEVICE_DIE:=true
 endif
 
 # Cores configuration check
@@ -112,7 +118,11 @@ _MTB_RECIPE__JLINK_GDB_PORT:=2337
 _MTB_RECIPE__JLINK_SWO_PORT:=2338
 _MTB_RECIPE__JLINK_TELNET_PORT:=2339
 _MTB_RECIPE__JLINK_CORE:=CM7_0
+# For single CM7 only devices JLink aliases do not have core index suffix
 _MTB_RECIPE__JLINK_CORE_TVII:=M7_0
+ifeq (true,$(_MTB_RECIPE__IS_SINGLE_CM7_DEVICE_DIE))
+_MTB_RECIPE__JLINK_CORE_TVII:=M7
+endif
 _MTB_RECIPE__OPENOCD_GDBINIT_FILE:=gdbinit_$(_MTB_RECIPE__OPENOCD_CORE)
 _MTB_RECIPE__JLINK_GDBINIT_FILE:=gdbinit_$(_MTB_RECIPE__OPENOCD_CORE)_jlink
 else
@@ -132,18 +142,19 @@ endif
 
 _MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG:=gdb_port 3333
 _MTB_RECIPE__OPENOCD_EXTRA_PORT_ECLIPSE:=-c &quot;$(_MTB_RECIPE__OPENOCD_EXTRA_PORT_FLAG)&quot;&\#13;&\#10;
-_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_DEBUG_ECLIPSE:=mon reset $(_MTB_RECIPE__OPENOCD_SECOND_RESET_TYPE)&\#13;&\#10;mon cat1c reset_halt sysresetreq&\#13;&\#10;flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
+_MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_DEBUG_ECLIPSE=mon reset $(_MTB_RECIPE__OPENOCD_SECOND_RESET_TYPE)&\#13;&\#10;mon $(_MTB_RECIPE__OPENOCD_CHIP_NAME) reset_halt sysresetreq&\#13;&\#10;flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
 _MTB_RECIPE__OPENOCD_RUN_RESTART_CMD_ATTACH_ECLIPSE:=flushregs&\#13;&\#10;mon gdb_sync&\#13;&\#10;stepi
 
 #
 # Architecure specifics
 #
-_MTB_RECIPE__OPENOCD_DRIVER_NAME:=cat1c
 _MTB_RECIPE__MCU_NAME:=XMC7000
 _MTB_RECIPE__OPENOCD_CHIP_NAME:=cat1c
 _MTB_RECIPE__OPENOCD_DEVICE_CFG:=cat1c.cfg
 ifneq (,$(_MTB_RECIPE__IS_TVIIC2D6M_DEVICE))
 _MTB_RECIPE__MCU_NAME:=CYT4DN
+else ifneq (,$(_MTB_RECIPE__IS_TVIIC2D4M_DEVICE))
+_MTB_RECIPE__MCU_NAME:=CYT3DL
 endif
 ifeq (true,$(_MTB_RECIPE__HAS_SINGLE_CM7))
 _MTB_RECIPE__OPENOCD_CM71_DISABLE_FLAG:=set ENABLE_CM71 0
@@ -162,6 +173,10 @@ else ifeq (TVIIBH8M,$(_MTB_RECIPE__DEVICE_DIE))
 _MTB_RECIPE__SERIES:=XMC7200
 else ifeq (TVIIC2D6M,$(_MTB_RECIPE__DEVICE_DIE))
 _MTB_RECIPE__SERIES:=TVIIC2D6M
+else ifeq (TVIIC2D4M,$(_MTB_RECIPE__DEVICE_DIE))
+_MTB_RECIPE__OPENOCD_CHIP_NAME:=traveo2
+_MTB_RECIPE__OPENOCD_DEVICE_CFG:=infineon/cyt3dl.cfg
+_MTB_RECIPE__SERIES:=TVIIC2D4M
 else
 $(call mtb__error,Incorrect device die $(_MTB_RECIPE__DEVICE_DIE). Supported dies are TVIIBH4M TVIIBH8M. Check the DEVICE_$(DEVICE)_DIE variable.)
 endif

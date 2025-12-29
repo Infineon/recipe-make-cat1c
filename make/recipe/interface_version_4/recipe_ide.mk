@@ -127,20 +127,20 @@ else
 	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//dual-core only//.*$$=)
 endif
 ifeq (true,$(_MTB_RECIPE__TVII_DEVICE))
-ifneq (,$(_MTB_RECIPE__IS_TVIIC2D6M_DEVICE))
+ifneq (,$(filter true,$(_MTB_RECIPE__IS_TVIIC2D4M_DEVICE) $(_MTB_RECIPE__IS_TVIIC2D6M_DEVICE)))
 ifeq ($(MTB_RECIPE__CORE),CM0P)
-	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^(.*)//CM0 TVIIC2D6M only//(.*)$$=\1\2)
+	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^(.*)//CM0 TVIIC2D only//(.*)$$=\1\2)
 else
-	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D6M only//.*$$=)
+	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D only//.*$$=)
 endif
 	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//traveo only//.*$$=)
 else
 	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^(.*)//traveo only//(.*)$$=\1\2)
-	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D6M only//.*$$=)
+	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D only//.*$$=)
 endif
 else
 	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//traveo only//.*$$=)
-	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D6M only//.*$$=)
+	$(call mtb__file_append,$(_MTB_RECIPE__VSCODE_TEMPLATE_REGEX_DATA_FILE),^.*//CM0 TVIIC2D only//.*$$=)
 endif
 
 recipe_vscode_meta_data_file:
@@ -172,6 +172,7 @@ recipe_eclipse_text_replacement_data_file:
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__CORE&&=$(_MTB_RECIPE__OPENOCD_CORE))
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__OPENOCD_CORE_PORT_SELECT&&=$(_MTB_RECIPE__OPENOCD_CORE_PORT))
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__OPENOCD_CM71_FLAG&&=$(_MTB_RECIPE__OPENOCD_CM71_DISABLE_ECLIPSE))
+	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__OPENOCD_CHIP&&=$(_MTB_RECIPE__OPENOCD_CHIP_NAME))
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__QSPI_CFG_PATH&&=$(_MTB_RECIPE__OPENOCD_QSPI_CFG_PATH_WITH_FLAG))
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__QSPI_FLASHLOADER&&=$(_MTB_RECIPE__OPENOCD_QSPI_FLASHLOADER_WITH_FLAG))
 	$(call mtb__file_append,$(_MTB_RECIPE__IDE_TEXT_DATA_FILE),&&_MTB_RECIPE__JLINK_CFG_PROGRAM&&=$(_MTB_RECIPE__JLINK_DEVICE_CFG_PROGRAM))

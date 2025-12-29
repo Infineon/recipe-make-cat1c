@@ -44,7 +44,7 @@
             "overrideRestartCommands": [
                 "starti"
             ],
-            "loadFiles": [],//CM0 TVIIC2D6M only//
+            "loadFiles": [],//CM0 TVIIC2D only//
             "overrideLaunchCommands": [//traveo only//
                 "load &&_MTB_RECIPE__HEX_FILE_APPLICATION&&",//traveo only//
                 "monitor reset"//traveo only//

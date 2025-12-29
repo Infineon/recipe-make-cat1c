@@ -54,7 +54,7 @@
                 // Comment these next lines out if you don't want to reload program
                 "monitor flash write_image erase {&&_MTB_RECIPE__HEX_FILE_APPLICATION&&}",
                 "monitor reset init",
-                "monitor cat1c reset_halt sysresetreq"
+                "monitor &&_MTB_RECIPE__OPENOCD_CHIP&& reset_halt sysresetreq"
             ],
             // svdFile is optional, it can be very large.
             "svdFile": "&&_MTB_RECIPE__APPLICATION_SVD_FILE_NAME&&",
@@ -197,7 +197,7 @@
             ],
             "overrideLaunchCommands": [
                 "set remotetimeout 15",
-                "monitor cat1c sflash_restrictions 1",
+                "monitor &&_MTB_RECIPE__OPENOCD_CHIP&& sflash_restrictions 1",
                 "monitor program {&&_MTB_RECIPE__HEX_FILE_APPLICATION&&}",
                 "monitor adapter srst delay 1000",
                 "monitor reset_config srst_only",
@@ -263,7 +263,7 @@
             "overrideLaunchCommands": [
                 "set remotetimeout 15",
                 "monitor reset init",
-                "monitor cat1c sflash_restrictions 1",
+                "monitor &&_MTB_RECIPE__OPENOCD_CHIP&& sflash_restrictions 1",
                 "monitor erase_all",
                 "monitor shutdown"
             ],
